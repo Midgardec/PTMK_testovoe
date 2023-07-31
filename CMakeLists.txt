@@ -11,6 +11,7 @@ add_executable(PTMK_testovoe myApp.cpp)
 target_link_libraries(PTMK_testovoe
         SQLiteCpp
         sqlite3
-        pthread
-
 )
+
+
+
