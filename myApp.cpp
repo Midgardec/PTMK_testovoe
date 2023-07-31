@@ -7,7 +7,7 @@ using namespace std;
 using namespace SQLite;
 
 // Функция для создания таблицы
-void createTable(Database &db) {
+void createTable(Database& db) {
     try {
         db.exec(R"(
             CREATE TABLE IF NOT EXISTS people (
@@ -17,11 +17,16 @@ void createTable(Database &db) {
                 gender TEXT NOT NULL
             )
         )");
-        cout << "Table 'people' created successfully." << endl;
-    } catch (Exception &e) {
-        cerr << "Error creating table: " << e.what() << endl;
+
+        db.exec("CREATE INDEX IF NOT EXISTS idx_gender ON people(gender);");
+        db.exec("CREATE INDEX IF NOT EXISTS idx_name ON people(name);");
+
+        cout << "Table 'people' and indexes created successfully." << endl;
+    } catch (Exception& e) {
+        cerr << "Error creating table and indexes: " << e.what() << endl;
     }
 }
+
 
 // Функция для добавления записи
 void insertRecord(Database &db, const string &name, const string &birthDate, const string &gender) {
